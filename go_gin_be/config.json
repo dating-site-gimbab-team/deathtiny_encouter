@@ -1,0 +1,10 @@
+{
+    "database": {
+        "url": "host=localhost user=youruser password=yourpassword dbname=yourdb port=9920 sslmode=disable TimeZone=Asia/Seoul"
+    },
+    "oauth": {
+        "clientID": "your-client-id",
+        "clientSecret": "your-client-secret",
+        "redirectURL": "http://localhost:8080/auth/google/callback"
+    }
+}
