@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16.4
+    env_file:
+      - ./go_gin_be/.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend_network
+    ports:
+      - "5432:5432"
+  
+  backend:
+    build: ./go_gin_be
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+    networks:
+      - backend_network
+    ports:
+      - "8080:8080"
+  
+  frontend:
+    build: ./vue_fe
+    depends_on:
+      - backend
+    networks:
+      - frontend_network
+    ports:
+      - "80:80"
+
+networks:
+  frontend_network:
+    driver: bridge
+  backend_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
